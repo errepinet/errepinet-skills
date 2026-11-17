@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Regenerate index.json, the OpenCode HTTP catalog for this repository.
+"""Regenerate skills/index.json, the OpenCode HTTP catalog for this repository.
 
-Each root-level directory containing SKILL.md is one skill. The catalog lists
-every file in that directory (relative paths) plus a version token derived from
-their contents; OpenCode re-downloads a skill when its version changes.
+Each skills/<skill-id>/ directory containing SKILL.md is one skill. The catalog
+lists every file in that directory (relative paths) plus a version token derived
+from their contents; OpenCode re-downloads a skill when its version changes.
 
 Usage:
-    python3 tools/sync_catalog.py           # write index.json
-    python3 tools/sync_catalog.py --check   # fail if index.json is stale
+    python3 tools/sync_catalog.py           # write skills/index.json
+    python3 tools/sync_catalog.py --check   # fail if the catalog is stale
 """
 from __future__ import annotations
 
@@ -19,16 +19,17 @@ from pathlib import Path
 from typing import Dict, List
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "index.json"
+SKILLS = ROOT / "skills"
+CATALOG = SKILLS / "index.json"
 SKILL_ID = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 IGNORED_DIRS = {"__pycache__", "node_modules"}
 IGNORED_SUFFIXES = {".pyc", ".pyo"}
 
 
 def skill_dirs() -> List[Path]:
-    """Return root-level <skill-id>/ directories that contain SKILL.md."""
+    """Return skills/<skill-id>/ directories that contain SKILL.md."""
     found = []
-    for child in sorted(ROOT.iterdir(), key=lambda path: path.name):
+    for child in sorted(SKILLS.iterdir(), key=lambda path: path.name):
         if not child.is_dir() or child.name.startswith("."):
             continue
         if (child / "SKILL.md").is_file():
@@ -86,7 +87,7 @@ def main(argv: List[str]) -> int:
     catalog = build()
     if not catalog["skills"]:
         raise SystemExit(
-            "no skills found: expected <skill-id>/SKILL.md at the repository root"
+            "no skills found: expected skills/<skill-id>/SKILL.md"
         )
     text = render(catalog)
 
@@ -94,11 +95,11 @@ def main(argv: List[str]) -> int:
         current = CATALOG.read_text(encoding="utf-8") if CATALOG.is_file() else ""
         if current != text:
             print(
-                "index.json is stale: run python3 tools/sync_catalog.py",
+                "skills/index.json is stale: run python3 tools/sync_catalog.py",
                 file=sys.stderr,
             )
             return 1
-        print(f"index.json is up to date ({len(catalog['skills'])} skills)")
+        print(f"skills/index.json is up to date ({len(catalog['skills'])} skills)")
         return 0
 
     CATALOG.write_text(text, encoding="utf-8")

@@ -16,8 +16,8 @@ jobs:
         with:
           python-version: "3.11"
       - name: Test errepinet-cve-audit
-        run: python3 errepinet-cve-audit/tests/run.py
+        run: python3 skills/errepinet-cve-audit/tests/run.py
       - name: Validate catalog
         run: python3 tools/sync_catalog.py --check
       - name: Validate catalog JSON
-        run: python3 -m json.tool index.json > /dev/null
+        run: python3 -m json.tool skills/index.json > /dev/null
