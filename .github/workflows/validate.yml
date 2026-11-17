@@ -3,18 +3,36 @@ name: validate
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    # ubuntu-latest moves to 26.04 between 2026-10-19 and 2026-11-19, and
+    # 26.04 has no Python 3.8 builds. Revisit after dropping the 3.8 leg.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.8", "3.11", "3.13"]
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python }}
+      - name: Show runner and Python
+        run: |
+          python3 --version
+          echo "ImageOS=$ImageOS ImageVersion=$ImageVersion"
       - name: Test errepinet-cve-audit
         run: python3 skills/errepinet-cve-audit/tests/run.py
       - name: Validate catalog

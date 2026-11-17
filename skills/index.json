@@ -2,7 +2,7 @@
   "skills": [
     {
       "name": "errepinet-cve-audit",
-      "version": "4123ff1550b5",
+      "version": "97ff5be22a0a",
       "files": [
         "SKILL.md",
         "scripts/common.py",
