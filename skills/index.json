@@ -2,7 +2,7 @@
   "skills": [
     {
       "name": "errepinet-cve-audit",
-      "version": "97ff5be22a0a",
+      "version": "5f185a3f9f80",
       "files": [
         "SKILL.md",
         "scripts/common.py",
@@ -10,6 +10,8 @@
         "scripts/fix.py",
         "scripts/normalize.py",
         "scripts/scan.py",
+        "tests/fixtures/bun-audit.json",
+        "tests/fixtures/bun-lock.json",
         "tests/fixtures/cargo-audit.json",
         "tests/fixtures/grype.json",
         "tests/fixtures/npm-audit.json",

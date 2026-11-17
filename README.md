@@ -4,7 +4,7 @@ OpenCode skills maintained by ErrepiNet.
 
 | Skill ID | Description |
 | --- | --- |
-| `errepinet-cve-audit` | Audit, triage, and fix CVEs in external dependencies of Rust, Python (uv), Flutter, and Node projects. |
+| `errepinet-cve-audit` | Audit, triage, and fix CVEs in external dependencies of Rust, Python (uv), Flutter, and Node (npm, pnpm, yarn, bun) projects. |
 | `errepinet-openspec-generate-specs` | Generate OpenSpec baseline specs from an existing (brownfield) codebase. |
 
 Repository layout:
