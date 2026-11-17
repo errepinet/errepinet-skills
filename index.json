@@ -1,0 +1,40 @@
+{
+  "skills": [
+    {
+      "name": "errepinet-cve-audit",
+      "version": "4123ff1550b5",
+      "files": [
+        "SKILL.md",
+        "scripts/common.py",
+        "scripts/detect.py",
+        "scripts/fix.py",
+        "scripts/normalize.py",
+        "scripts/scan.py",
+        "tests/fixtures/cargo-audit.json",
+        "tests/fixtures/grype.json",
+        "tests/fixtures/npm-audit.json",
+        "tests/fixtures/npm-package-lock.json",
+        "tests/fixtures/npm-v1-audit.json",
+        "tests/fixtures/pip-audit.json",
+        "tests/fixtures/pnpm-audit.json",
+        "tests/fixtures/trivy.json",
+        "tests/fixtures/yarn-berry.json",
+        "tests/fixtures/yarn-classic.json",
+        "tests/run.py",
+        "tests/test_common.py",
+        "tests/test_detect.py",
+        "tests/test_fix_plan.py",
+        "tests/test_normalize.py",
+        "tests/test_normalize_integration.py",
+        "tests/test_scan.py"
+      ]
+    },
+    {
+      "name": "errepinet-openspec-generate-specs",
+      "version": "32cfa5e28a36",
+      "files": [
+        "SKILL.md"
+      ]
+    }
+  ]
+}
